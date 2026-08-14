@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FF Wishlist Manager - Quản Lý Wishlist Free Fire</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Background Particles -->
+    <div class="bg-animation">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <!-- Login Screen -->
+    <div id="loginScreen" class="screen active">
+        <div class="login-container">
+            <div class="logo-container">
+                <img src="https://ff.garena.vn/static/media/logo.5c4f1e10.png" alt="Free Fire Logo" class="ff-logo" onerror="this.style.display='none'">
+                <h1 class="title-glow">WISHLIST MANAGER</h1>
+                <p class="subtitle">Hệ Thống Quản Lý Wishlist Free Fire</p>
+                <div class="version-badge">OB54 - OB90 | 2026 - 2030</div>
+            </div>
+
+            <div class="login-form">
+                <h2 class="form-title">🔐 ĐĂNG NHẬP</h2>
+                
+                <div class="input-group">
+                    <label>📱 Tên Tệp Khách (Tên Đăng Nhập)</label>
+                    <input type="text" id="loginName" placeholder="Nhập tên người chơi..." autocomplete="off">
+                </div>
+
+                <div class="input-group">
+                    <label>🎮 Nickname Game Free Fire</label>
+                    <input type="text" id="loginNickname" placeholder="Nhập nickname trong game..." autocomplete="off">
+                </div>
+
+                <div class="input-group">
+                    <label>🆔 UID Game Free Fire</label>
+                    <input type="text" id="loginUID" placeholder="Nhập UID (VD: 1234567890)" maxlength="12" autocomplete="off">
+                </div>
+
+                <div class="input-group">
+                    <label>📧 Email (Tùy chọn)</label>
+                    <input type="email" id="loginEmail" placeholder="Nhập email liên hệ..." autocomplete="off">
+                </div>
+
+                <div class="input-group">
+                    <label>📞 Số Điện Thoại (Tùy chọn)</label>
+                    <input type="tel" id="loginPhone" placeholder="Nhập số điện thoại..." autocomplete="off">
+                </div>
+
+                <button class="btn-login" onclick="handleLogin()">
+                    <span class="btn-icon">⚡</span>
+                    ĐĂNG NHẬP NGAY
+                </button>
+
+                <div class="login-info">
+                    <p>🔒 Thông tin của bạn được bảo mật tuyệt đối</p>
+                    <p>🌐 Hỗ trợ Server Việt Nam</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Wishlist Management Screen -->
+    <div id="wishlistScreen" class="screen">
+        <div class="wishlist-container">
+            <!-- Header -->
+            <div class="header">
+                <div class="header-left">
+                    <button class="btn-back" onclick="handleLogout()">← Thoát</button>
+                </div>
+                <div class="header-center">
+                    <h1 class="header-title">🎯 QUẢN LÝ WISHLIST</h1>
+                    <p class="header-subtitle">Free Fire Wishlist Manager</p>
+                </div>
+                <div class="header-right">
+                    <div class="player-info">
+                        <span class="player-badge">👤</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Player Info Bar -->
+            <div class="player-bar">
+                <div class="player-card">
+                    <div class="player-avatar">🎮</div>
+                    <div class="player-details">
+                        <h3 id="displayName">Tên Người Chơi</h3>
+                        <p id="displayNickname">Nickname: ...</p>
+                        <p id="displayUID">UID: ...</p>
+                    </div>
+                </div>
+                <div class="wishlist-counter">
+                    <div class="counter-number" id="itemCount">0</div>
+                    <div class="counter-label">/ 100 Vật Phẩm</div>
+                </div>
+            </div>
+
+            <!-- Add Item Section -->
+            <div class="add-item-section">
+                <h3 class="section-title">➕ THÊM VẬT PHẨM VÀO WISHLIST</h3>
+                <div class="add-item-form">
+                    <div class="item-input-group">
+                        <label>🔢 Nhập ID Item (9 số)</label>
+                        <input type="text" id="itemIdInput" placeholder="VD: 123456789" maxlength="9" 
+                               oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                               onkeyup="previewItem()">
+                    </div>
+                    <button class="btn-add" onclick="addItem()">
+                        <span class="btn-icon">+</span> Thêm Vật Phẩm
+                    </button>
+                    <button class="btn-delete-one" onclick="deleteItem()">
+                        <span class="btn-icon">🗑</span> Xóa Theo ID
+                    </button>
+                    <button class="btn-delete-all" onclick="deleteAllItems()">
+                        <span class="btn-icon">🗑</span> Xóa Tất Cả
+                    </button>
+                </div>
+                <div class="item-hint">💡 Nhập ID item 9 số để thêm hoặc xóa vật phẩm</div>
+                
+                <!-- Item Preview -->
+                <div id="itemPreview" class="item-preview" style="display: none;">
+                    <div class="preview-card">
+                        <img id="previewIcon" src="" alt="Item Icon" class="preview-icon">
+                        <div class="preview-info">
+                            <h4 id="previewName">Tên Item</h4>
+                            <p id="previewId">ID: ...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wishlist Grid -->
+            <div class="wishlist-section">
+                <h3 class="section-title">📦 DANH SÁCH WISHLIST</h3>
+                <div id="wishlistGrid" class="wishlist-grid">
+                    <!-- Items will be rendered here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
