@@ -1,0 +1,21 @@
+{
+  "name": "ff-wishlist-manager",
+  "version": "2.0.0",
+  "description": "Free Fire Wishlist Manager with API Integration",
+  "main": "index.html",
+  "scripts": {
+    "start": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "keywords": [
+    "free-fire",
+    "wishlist",
+    "garena",
+    "game",
+    "api"
+  ],
+  "author": "FF Wishlist Manager",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {}
+}
